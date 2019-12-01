@@ -3,7 +3,7 @@ import {
   getTotalFuel,
   getRecursiveFuelAmount,
   getTotalRecursiveFuel,
-} from '../12012019'
+} from '.'
 
 describe('getFuelAmount', () => {
   it('returns the right amount', () => {

@@ -94,7 +94,7 @@ describe('runProgram', () => {
     ])
   })
 
-  it('can run a program with set, get, jump, and comparison', () => {
+  it('can handle input, and run a program with set, get, jump, and comparison', () => {
     expect(runProgram([3, 0, 4, 0, 99], 1)).toEqual(1)
     expect(runProgram([1002, 4, 3, 4, 33])).toEqual([1002, 4, 3, 4, 99])
 
@@ -182,5 +182,9 @@ describe('runProgram', () => {
     expect(runProgram(testProgram, 7)).toEqual(999)
     expect(runProgram(testProgram, 8)).toEqual(1000)
     expect(runProgram(testProgram, 9)).toEqual(1001)
+  })
+
+  it('can handle multiple inputs', () => {
+    expect(runProgram([3, 0, 3, 1, 4, 1, 99], [1, 2])).toEqual(2)
   })
 })

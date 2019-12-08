@@ -1,6 +1,13 @@
 export type program = number[]
 export type programOutput = program | number
 
+export type programState = {
+  program: program
+  index: number
+  output?: number
+  stopped: boolean
+}
+
 /* Modes */
 const MODE_PATTERN = /(?<modes>[0-1]{0,3})0(?<op>[1-8])/
 const MODE_POSITION = '0'
@@ -26,12 +33,19 @@ const STEP_JUMP = 3
 const STEP_LESS_THAN = 4
 const STEP_EQUALS = 4
 
-export const runProgram = function(
+export const startProgram = function(
   program: program,
-  input?: number | number[],
-  index: number = 0,
-  output?: programOutput
-): programOutput {
+  input?: number | number[]
+): programState {
+  return runProgram({ program, index: 0, stopped: false }, input)
+}
+
+export const runProgram = function(
+  programState: programState,
+  input?: number | number[]
+): programState {
+  const { program, index = 0, output } = programState
+  // Determine next operation
   let operation = program[index]
   let modes = '000'
   let newProgram = [...program]
@@ -80,8 +94,8 @@ export const runProgram = function(
       const inputVal = Array.isArray(input) ? input.shift() : input
 
       if (!inputVal && inputVal !== 0) {
-        console.error('Error, no input provided to set operation')
-        return newProgram
+        // console.error('Error, no input provided to set operation')
+        return programState
       }
 
       const position = program[index + 1]
@@ -132,15 +146,26 @@ export const runProgram = function(
       break
     }
     case OP_STOP: {
-      return newOutput !== undefined ? newOutput : newProgram
+      return {
+        ...programState,
+        stopped: true,
+      }
     }
     default: {
       console.error('Error, unknown operation', operation)
-      return newProgram
+      return programState
     }
   }
 
-  return runProgram(newProgram, input, step, newOutput)
+  return runProgram(
+    {
+      ...programState,
+      program: newProgram,
+      index: step,
+      output: newOutput,
+    },
+    input
+  )
 }
 
 export const handleMode = function(

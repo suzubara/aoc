@@ -1,5 +1,3 @@
-import { parse } from "path"
-
 export const checkValid = (input: string): boolean => {
   const [policy, password] = input.split(': ')
 

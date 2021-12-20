@@ -82,7 +82,7 @@ export const filterValues = (
     }
   }
 
-  console.log('FINAL', finalValue)
+  // console.log('FINAL', finalValue)
 
   return parseInt(finalValue, 2)
 }

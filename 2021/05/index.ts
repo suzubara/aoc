@@ -47,7 +47,7 @@ export const mapLine = (line: Line): Coord[] => {
     const lineLength = Math.abs(x1 - x2)
     const yOp = y1 > y2 ? 'SUB' : 'ADD'
 
-    console.log('diagonal', line, lineLength, xOp, yOp)
+    // console.log('diagonal', line, lineLength, xOp, yOp)
 
     for (let length = 0; length <= lineLength; length++) {
       let x = xOp === 'ADD' ? x1 + length : x1 - length

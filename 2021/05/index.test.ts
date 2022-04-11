@@ -121,6 +121,6 @@ describe('with real input', () => {
 
   it('returns number of intersections with diagonal lines', () => {
     const parsed = parseInput(input)
-    expect(countIntersections(parsed, true)).toEqual(6113)
+    expect(countIntersections(parsed, true)).toEqual(20373)
   })
 })
